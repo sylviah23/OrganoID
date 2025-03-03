@@ -1,5 +1,5 @@
 tensorflow
-numpy
+numpy<2
 pillow
 scikit-image
 scipy
