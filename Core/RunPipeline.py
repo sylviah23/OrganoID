@@ -102,8 +102,13 @@ def RunPipeline(modelPath: Path, imagePaths: List[Path], outputPath: Optional[Pa
     if outputPath is not None and computeProps:
         from Core.Analyze import AnalyzeAndExport
         stacks = ConvertImagesToStacks(cleanedImages, pilImages) if batch else [cleanedImages]
+        file_names = []
+        for i in range(len(pilImages)):
+            name = pilImages[i].filename
+            path_parts = str(name).split("\\")
+            file_names.append(path_parts[-1])
         for stack, original in zip(stacks, pilImages):
             path = Path(original.filename)
-            AnalyzeAndExport(stack, outputPath / (path.stem + "_data.xlsx"))
+            AnalyzeAndExport(stack, outputPath / (path.stem + "_data.xlsx"), file_names)
 
     return outputImages
